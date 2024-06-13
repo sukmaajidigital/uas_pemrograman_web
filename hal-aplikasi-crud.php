@@ -222,15 +222,30 @@
                 <div class="card-header bg-secondary text-white"><b>Form Entri (Matakuliah)</b></div>
                 <div class="card-body">
                     <?php 
-                        //perintah untuk menampilkan data ke form entri saat melakukan ubah data
-                        if(@$_GET['aksi'] == 'ubah_matakuliah') { 
-                            $SQLTampilDataUbahMatakuliah = mysqli_query($koneksi, "SELECT * FROM mata_kuliah where id_matakuliah = '".$_GET['id_matakuliah']."' "); 
-                            $data_ubah_matakuliah = mysqli_fetch_array($SQLTampilDataUbahMatakuliah);
+                        if(isset($_GET['aksi']) && $_GET['aksi'] == 'ubah_matakuliah') { 
+                            $SQLTampilDataUbahMatakuliah = $koneksi->prepare("SELECT * FROM mata_kuliah WHERE id_matakuliah = ?");
+                            $SQLTampilDataUbahMatakuliah->bind_param('s', $_GET['id_matakuliah']);
+                            $SQLTampilDataUbahMatakuliah->execute();
+                            $result = $SQLTampilDataUbahMatakuliah->get_result();
+                            $data_ubah_matakuliah = $result->fetch_assoc();
+                            $SQLTampilDataUbahMatakuliah->close();
+                        }
+                        
+                        // Mengambil nilai terakhir dari kolom id_matakuliah
+                        $stmt = $koneksi->query("SELECT id_matakuliah FROM mata_kuliah ORDER BY id_matakuliah DESC LIMIT 1");
+                        $last_id = $stmt->fetch_assoc();
+                        if ($last_id) {
+                            // Extract angka di belakang 'MAT87'
+                            $number = (int) substr($l, 5);
+                            $next_id = 'MAT87' . sprintf('%02d', $number + 1); // Format sebagai dua digit
+                        } else {
+                            // Jika belum ada data, mulai dari 'MAT8701'
+                            $next_id = 'MAT8701';
                         }
                     ?>
                     <form method="post" enctype="multipart/form-data" action="">
 
-                        <input class="form-control" type="hidden" name="inputan_id_matakuliah" value="<?= @$_GET['id_matakuliah'] ?>">
+                        <input class="form-control" type="" name="inputan_id_matakuliah" value="<?= @$_GET['id_matakuliah'] ?>">
                         
                         <div class="row mb-2">
                             <label class="col-4">Nama Matakuliah</label>

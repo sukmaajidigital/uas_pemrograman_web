@@ -10,19 +10,27 @@
                                     if(@$_GET['aksi'] == 'ubah_kategori') { 
                                         $SQLTampilDataUbahkategori = mysqli_query($koneksi, "SELECT * FROM kategoribahanbaku where id = '".$_GET['id']."' "); 
                                         $data_ubah_kategori = mysqli_fetch_array($SQLTampilDataUbahkategori);
+                                        if ($SQLTampilDataUbahkategori->num_rows > 0) {
+                                            $row = $SQLTampilDataUbahkategori->fetch_assoc();
+
+                                        } else {
+                                            echo "Data tidak ditemukan";
+                                            exit;
+                                        }
                                     }
-                                ?>
+                                    
+                                ?> 
+                                
                                 <!-- memanggil CRUD kategori -->
                                  <?php
                                  include 'config/controllerKategori.php';
                                  ?>
-                                <form method="post" enctype="multipart/form-data" action="">
-
-                                    <input class="form-control" type="hidden" name="inputan_id_kategori" value="<?= @$_GET['id'] ?>">
+                                <form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                                    <input class="form-control" type="" name="inputan_id_kategori" value="<?php echo htmlspecialchars($idToShow); ?>" readonly>
                                     
                                     <div class="row mb-2">
                                         <label class="col-4">Nama kategori</label>
-                                        <div class="col-8">
+                                        <div class="col-8"> 
                                             <input class="form-control" type="text" name="inputan_nama_kategori" required value="<?= @$data_ubah_kategori['nama'] ?>">
                                         </div>
                                         <label class="col-4">deskripsi</label>
@@ -46,7 +54,7 @@
                                 <table class="table " id="tabel_data">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
+                                            <th>Kode.</th>
                                             <th>Kategori Barang</th>
                                             <th>Deskripsi</th>
                                             <th>Opsi</th>
@@ -57,7 +65,7 @@
                                             $SQLtampildatakategori = mysqli_query($koneksi, "SELECT * FROM kategoribahanbaku ORDER BY id DESC");
                                             while($data_kategori = mysqli_fetch_array($SQLtampildatakategori)) { ?>
                                         <tr style="font-size: smaller;">
-                                            <td><?= $no++ ?></td>
+                                            <td><?= $data_kategori['id'] ?></td>
                                             <td><?= $data_kategori['nama'] ?></td>
                                             <td><?= $data_kategori['deskripsi'] ?></td>
                                             <td>

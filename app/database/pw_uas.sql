@@ -1,345 +1,135 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jun 11, 2024 at 05:27 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.3.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `pw_uas`
---
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               8.0.30 - MySQL Community Server - GPL
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
 
---
--- Table structure for table `bahanbaku`
---
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE `bahanbaku` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `deskripsi` text DEFAULT NULL,
-  `satuan` varchar(50) DEFAULT NULL,
+
+-- Dumping database structure for pw_uas
+CREATE DATABASE IF NOT EXISTS `pw_uas` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `pw_uas`;
+
+-- Dumping structure for table pw_uas.bahanbaku
+CREATE TABLE IF NOT EXISTS `bahanbaku` (
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `nama` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_general_ci,
+  `satuan` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `harga_per_satuan` decimal(10,2) NOT NULL,
   `stok_tersedia` decimal(10,2) NOT NULL,
   `tanggal_ditambahkan` datetime NOT NULL,
-  `id_kategori` int(11) DEFAULT NULL
+  `id_kategori` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_bahanbaku_kategoribahanbaku` (`id_kategori`),
+  CONSTRAINT `FK_bahanbaku_kategoribahanbaku` FOREIGN KEY (`id_kategori`) REFERENCES `kategoribahanbaku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `bahanbaku`
---
+-- Data exporting was unselected.
 
-INSERT INTO `bahanbaku` (`id`, `nama`, `deskripsi`, `satuan`, `harga_per_satuan`, `stok_tersedia`, `tanggal_ditambahkan`, `id_kategori`) VALUES
-(1, 'Kain Mori', 'Kain mori kualitas tinggi', 'yard', 150.00, 100.00, '2023-06-01 10:00:00', 1),
-(2, 'Lilin Malam Kualitas A', 'Lilin malam kualitas terbaik', 'kg', 50.00, 200.00, '2023-06-02 11:00:00', 2),
-(3, 'Pewarna Merah', 'Pewarna batik warna merah', 'g', 5.00, 5000.00, '2023-06-03 12:00:00', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `detailpembelian`
---
-
-CREATE TABLE `detailpembelian` (
-  `id` int(11) NOT NULL,
-  `id_pembelian` int(11) DEFAULT NULL,
-  `id_bahan_baku` int(11) DEFAULT NULL,
+-- Dumping structure for table pw_uas.detailpembelian
+CREATE TABLE IF NOT EXISTS `detailpembelian` (
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `id_pembelian` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id_bahan_baku` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `jumlah` decimal(10,2) NOT NULL,
   `harga_per_satuan` decimal(10,2) NOT NULL,
-  `sub_total` decimal(10,2) NOT NULL
+  `sub_total` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_detailpembelian_bahanbaku` (`id_bahan_baku`),
+  KEY `FK_detailpembelian_pembelian` (`id_pembelian`),
+  CONSTRAINT `FK_detailpembelian_bahanbaku` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahanbaku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_detailpembelian_pembelian` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `detailpembelian`
---
+-- Data exporting was unselected.
 
-INSERT INTO `detailpembelian` (`id`, `id_pembelian`, `id_bahan_baku`, `jumlah`, `harga_per_satuan`, `sub_total`) VALUES
-(1, 1, 1, 10.00, 150.00, 1500.00),
-(2, 2, 2, 50.00, 50.00, 2500.00),
-(3, 3, 3, 5000.00, 5.00, 25000.00);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dosen`
---
-
-CREATE TABLE `dosen` (
-  `id_dosen` int(11) NOT NULL,
-  `nidn_dosen` bigint(20) NOT NULL,
+-- Dumping structure for table pw_uas.dosen
+CREATE TABLE IF NOT EXISTS `dosen` (
+  `id_dosen` int NOT NULL AUTO_INCREMENT,
+  `nidn_dosen` bigint NOT NULL,
   `nama_dosen` varchar(100) NOT NULL,
   `jk_dosen` enum('Pria','Wanita') NOT NULL,
   `alamat_dosen` text NOT NULL,
-  `foto_dosen` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `foto_dosen` text NOT NULL,
+  PRIMARY KEY (`id_dosen`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `dosen`
---
+-- Data exporting was unselected.
 
-INSERT INTO `dosen` (`id_dosen`, `nidn_dosen`, `nama_dosen`, `jk_dosen`, `alamat_dosen`, `foto_dosen`) VALUES
-(5, 2000021219829192801, 'Goo Young Joong, S.Kom, M.Kom.', 'Wanita', 'Kudus', '6665414214ed1.jpg'),
-(6, 2000021219829192802, 'Zayn Malik, S.Kom, M.Kom', 'Pria', 'Kudus', '666560bc1211f.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jadwal_kuliah`
---
-
-CREATE TABLE `jadwal_kuliah` (
-  `id_jadwalkuliah` int(11) NOT NULL,
+-- Dumping structure for table pw_uas.jadwal_kuliah
+CREATE TABLE IF NOT EXISTS `jadwal_kuliah` (
+  `id_jadwalkuliah` int NOT NULL AUTO_INCREMENT,
   `tanggal_entri` date NOT NULL,
   `hari_kuliah` text NOT NULL,
   `jam_kuliah` text NOT NULL,
   `tempat_kuliah` text NOT NULL,
-  `id_matakuliah` int(11) NOT NULL,
-  `id_dosen` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `id_matakuliah` int NOT NULL,
+  `id_dosen` int NOT NULL,
+  PRIMARY KEY (`id_jadwalkuliah`),
+  KEY `id_mahasiswa` (`id_matakuliah`),
+  KEY `id_dosen` (`id_dosen`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `jadwal_kuliah`
---
+-- Data exporting was unselected.
 
-INSERT INTO `jadwal_kuliah` (`id_jadwalkuliah`, `tanggal_entri`, `hari_kuliah`, `jam_kuliah`, `tempat_kuliah`, `id_matakuliah`, `id_dosen`) VALUES
-(3, '2024-06-09', 'Senin', '14:50 sampai 16:50', 'Lab. Pemrograman', 2, 6),
-(4, '2024-06-13', 'Rabu', '18:01 sampai 19:04', 'lab2', 5, 5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kategoribahanbaku`
---
-
-CREATE TABLE `kategoribahanbaku` (
-  `id` int(11) NOT NULL,
-  `nama` text NOT NULL,
-  `deskripsi` text DEFAULT NULL
+-- Dumping structure for table pw_uas.kategoribahanbaku
+CREATE TABLE IF NOT EXISTS `kategoribahanbaku` (
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `nama` text COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `kategoribahanbaku`
---
+-- Data exporting was unselected.
 
-INSERT INTO `kategoribahanbaku` (`id`, `nama`, `deskripsi`) VALUES
-(1, 'Kain', 'Bahan baku kain untuk batik, satuan yard'),
-(2, 'Lilin Malam', 'Bahan baku lilin malam untuk batik, satuan kg'),
-(3, 'warna', 'Bahan baku warna untuk batik, satuan gram');
+-- Dumping structure for table pw_uas.mata_kuliah
+CREATE TABLE IF NOT EXISTS `mata_kuliah` (
+  `id_matakuliah` int NOT NULL AUTO_INCREMENT,
+  `mata_kuliah` text NOT NULL,
+  PRIMARY KEY (`id_matakuliah`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+-- Data exporting was unselected.
 
---
--- Table structure for table `mata_kuliah`
---
-
-CREATE TABLE `mata_kuliah` (
-  `id_matakuliah` int(11) NOT NULL,
-  `mata_kuliah` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `mata_kuliah`
---
-
-INSERT INTO `mata_kuliah` (`id_matakuliah`, `mata_kuliah`) VALUES
-(2, 'Pemrogaman web'),
-(3, 'Rekayasa Web'),
-(4, 'Pemograman Mobile');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pembelian`
---
-
-CREATE TABLE `pembelian` (
-  `id` int(11) NOT NULL,
-  `id_supplier` int(11) DEFAULT NULL,
+-- Dumping structure for table pw_uas.pembelian
+CREATE TABLE IF NOT EXISTS `pembelian` (
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `id_supplier` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tanggal_pembelian` datetime NOT NULL,
-  `total_harga` decimal(10,2) NOT NULL
+  `total_harga` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_pembelian_supplier` (`id_supplier`),
+  CONSTRAINT `FK_pembelian_supplier` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `pembelian`
---
+-- Data exporting was unselected.
 
-INSERT INTO `pembelian` (`id`, `id_supplier`, `tanggal_pembelian`, `total_harga`) VALUES
-(1, 1, '2023-06-04 13:00:00', 1500.00),
-(2, 2, '2023-06-05 14:00:00', 2500.00),
-(3, 3, '2023-06-06 15:00:00', 25000.00);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `supplier`
---
-
-CREATE TABLE `supplier` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `alamat` text DEFAULT NULL,
-  `no_telepon` varchar(20) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `kontak_person` varchar(255) DEFAULT NULL
+-- Dumping structure for table pw_uas.supplier
+CREATE TABLE IF NOT EXISTS `supplier` (
+  `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT',
+  `nama` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci,
+  `no_telepon` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `kontak_person` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `logosupplier` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `supplier`
---
+-- Data exporting was unselected.
 
-INSERT INTO `supplier` (`id`, `nama`, `alamat`, `no_telepon`, `email`, `kontak_person`) VALUES
-(1, 'Supplier Kain', 'Jl. Kain No. 1, Yogyakarta', '081234567890', 'supplierkain@example.com', 'Budi Setiawan'),
-(2, 'Supplier Lilin', 'Jl. Lilin No. 2, Surakarta', '081234567891', 'supplierlilin@example.com', 'Siti Aminah'),
-(3, 'Supplier Warna', 'Jl. Warna No. 3, Semarang', '081234567892', 'supplierwarna@example.com', 'Andi Pratama');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `bahanbaku`
---
-ALTER TABLE `bahanbaku`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_kategori` (`id_kategori`);
-
---
--- Indexes for table `detailpembelian`
---
-ALTER TABLE `detailpembelian`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_pembelian` (`id_pembelian`),
-  ADD KEY `id_bahan_baku` (`id_bahan_baku`);
-
---
--- Indexes for table `dosen`
---
-ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`id_dosen`);
-
---
--- Indexes for table `jadwal_kuliah`
---
-ALTER TABLE `jadwal_kuliah`
-  ADD PRIMARY KEY (`id_jadwalkuliah`),
-  ADD KEY `id_mahasiswa` (`id_matakuliah`),
-  ADD KEY `id_dosen` (`id_dosen`);
-
---
--- Indexes for table `kategoribahanbaku`
---
-ALTER TABLE `kategoribahanbaku`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `mata_kuliah`
---
-ALTER TABLE `mata_kuliah`
-  ADD PRIMARY KEY (`id_matakuliah`);
-
---
--- Indexes for table `pembelian`
---
-ALTER TABLE `pembelian`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_supplier` (`id_supplier`);
-
---
--- Indexes for table `supplier`
---
-ALTER TABLE `supplier`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `bahanbaku`
---
-ALTER TABLE `bahanbaku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `detailpembelian`
---
-ALTER TABLE `detailpembelian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `dosen`
---
-ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `jadwal_kuliah`
---
-ALTER TABLE `jadwal_kuliah`
-  MODIFY `id_jadwalkuliah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `kategoribahanbaku`
---
-ALTER TABLE `kategoribahanbaku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `mata_kuliah`
---
-ALTER TABLE `mata_kuliah`
-  MODIFY `id_matakuliah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `pembelian`
---
-ALTER TABLE `pembelian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `supplier`
---
-ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `bahanbaku`
---
-ALTER TABLE `bahanbaku`
-  ADD CONSTRAINT `bahanbaku_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategoribahanbaku` (`id`);
-
---
--- Constraints for table `detailpembelian`
---
-ALTER TABLE `detailpembelian`
-  ADD CONSTRAINT `detailpembelian_ibfk_1` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id`),
-  ADD CONSTRAINT `detailpembelian_ibfk_2` FOREIGN KEY (`id_bahan_baku`) REFERENCES `bahanbaku` (`id`);
-
---
--- Constraints for table `pembelian`
---
-ALTER TABLE `pembelian`
-  ADD CONSTRAINT `pembelian_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id`);
-COMMIT;
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

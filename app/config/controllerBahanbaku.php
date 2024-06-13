@@ -12,7 +12,7 @@ if(isset($_POST['tombol_simpan_bahanbaku']) and @$_GET['aksi'] == ''){
     echo "<script>alert('Operasi berhasil')</script>";
     echo "<meta http-equiv='refresh' content='0; url=index.php'> ";
 }
-
+ 
 //perintah simpan ubah data bahanbaku
 if(isset($_POST['tombol_simpan_bahanbaku']) and @$_GET['aksi'] == 'ubah_bahanbaku'){
     //melakukan proses simpan ubah data

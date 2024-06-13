@@ -7,4 +7,4 @@ $databaseName='pw_uas';
 $koneksi = mysqli_connect($databaseServer,$databaseUser,$databasepass,$databaseName)
 or 
 die('koneksi gagal');
-?>
+?> 
