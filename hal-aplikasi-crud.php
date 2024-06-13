@@ -20,7 +20,7 @@
 
 <!-- nama aplikasi -->
 <center class="m-3"><h1 style="font-family: 'Sofia', sans-serif; color: green; font-weight: bold;"><i class="fa fa-clone"></i> Aplikasi CRUD (Materi UAS)</h1></center>
-
+ 
 <!-- menu tab aplikasi -->
 <div class="container mt-5">
   <ul class="nav nav-tabs">
