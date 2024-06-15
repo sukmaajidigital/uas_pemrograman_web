@@ -16,9 +16,13 @@
                                  ?>
                                 <form method="post" enctype="multipart/form-data" action="">
 
-                                    <input class="form-control" type="hidden" name="inputan_id_supplier" value="<?= @$_GET['id'] ?>">
+                                    <input class="form-control" type="text" name="inputan_id_supplier" value="<?= @$_GET['id'] ?>">
                                     
                                     <div class="row mb-2">
+                                        <label class="col-4">Kode.</label>
+                                        <div class="col-8">
+                                            <input class="form-control" type="text" name="inputan_kode_supplier" required readonly value="<?php echo htmlspecialchars($idToShow); ?>">
+                                        </div>
                                         <label class="col-4">Nama supplier</label>
                                         <div class="col-8">
                                             <input class="form-control" type="text" name="inputan_nama_supplier" required value="<?= @$data_ubah_supplier['nama'] ?>">
@@ -42,7 +46,7 @@
                                         <label class="col-4">Logo Supplier</label>
                                         <div class="col-8">
                                             <input class="form-control" type="file" name="inputan_logo_supplier">
-                                            <input class="form-control" type="hidden" name="nama_foto_tersimpan" value="<?= @$data_ubah_supplier['logosupllier'] ?>">
+                                            <input class="form-control" type="hidden" name="nama_logo_tersimpan" value="<?= @$data_ubah_supplier['logosupllier'] ?>">
                                         </div>
                                     </div>
                                     <button name="tombol_simpan_supplier" class="btn btn-success btn-block btn-lg"> <i class="fa fa-save"></i> Simpan</button>
@@ -62,6 +66,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
+                                            <th>Kode.</th>
                                             <th>Nama Supplier</th>
                                             <th>Alamat</th>
                                             <th>Kontak</th>
@@ -75,6 +80,7 @@
                                             while($data_supplier = mysqli_fetch_array($SQLtampildatasupplier)) { ?>
                                         <tr style="font-size: smaller;">
                                             <td><?= $no++ ?></td>
+                                            <td><?= $data_supplier['kodesupplier']?></td>
                                             <td><?= $data_supplier['nama'] ?></td>
                                             <td><?= $data_supplier['alamat'] ?></td>
                                             <td>
@@ -85,7 +91,7 @@
                                             <td>
                                                 <img src="<?= 'img/'.$data_supplier['logosupplier'] ?>" height="100%" width="70px">
                                             </td>
-                                            <td>
+                                            <td> 
                                                 <a style="margin: 2px;" href="index.php?aksi=ubah_supplier&id=<?= $data_supplier['id'] ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                                                 <a style="margin: 2px;" onclick="return confirm('Yakin hapus ?')" href="index.php?aksi=hapus_supplier&id=<?= $data_supplier['id'] ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>

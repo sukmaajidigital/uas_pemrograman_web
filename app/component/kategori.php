@@ -20,12 +20,10 @@
                                     }
                                     
                                 ?> 
-                                
                                 <!-- memanggil CRUD kategori -->
                                  <?php include 'config/controllerKategori.php';?>
 
                                 <form method="post" enctype="multipart/form-data" action="">
-                                    <input class="col-4" type="text" name="inputan_id_kategori" value="<?=@$data_ubah_kategori['id'];?>" >
                                     <input class="form-control" type="" name="inputan_kode_kategori" value="<?php echo htmlspecialchars($idToShow); ?>" readonly>
                                     
                                     <div class="row mb-2">
@@ -40,7 +38,6 @@
                                     </div>
                                     <button name="tombol_simpan_kategori" class="btn btn-success btn-block btn-lg"> <i class="fa fa-save"></i> Simpan</button>
                                     <a href="index.php" class="btn btn-danger btn-block"><i class="fa fa-refresh fa-spin"></i> Muat Ulang</a>
-
                                 </form>   
                             </div>
                         </div>
