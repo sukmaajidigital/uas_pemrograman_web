@@ -22,11 +22,11 @@
                                 ?> 
                                 
                                 <!-- memanggil CRUD kategori -->
-                                 <?php
-                                 include 'config/controllerKategori.php';
-                                 ?>
-                                <form method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                                    <input class="form-control" type="" name="inputan_id_kategori" value="<?php echo htmlspecialchars($idToShow); ?>" readonly>
+                                 <?php include 'config/controllerKategori.php';?>
+
+                                <form method="post" enctype="multipart/form-data" action="">
+                                    <input class="col-4" type="text" name="inputan_id_kategori" value="<?=@$data_ubah_kategori['id'];?>" >
+                                    <input class="form-control" type="" name="inputan_kode_kategori" value="<?php echo htmlspecialchars($idToShow); ?>" readonly>
                                     
                                     <div class="row mb-2">
                                         <label class="col-4">Nama kategori</label>
@@ -54,6 +54,7 @@
                                 <table class="table " id="tabel_data">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Kode.</th>
                                             <th>Kategori Barang</th>
                                             <th>Deskripsi</th>
@@ -65,7 +66,8 @@
                                             $SQLtampildatakategori = mysqli_query($koneksi, "SELECT * FROM kategoribahanbaku ORDER BY id DESC");
                                             while($data_kategori = mysqli_fetch_array($SQLtampildatakategori)) { ?>
                                         <tr style="font-size: smaller;">
-                                            <td><?= $data_kategori['id'] ?></td>
+                                            <td><?= $no ++ ?></td>
+                                            <td><?= $data_kategori['kodekategori'] ?></td>
                                             <td><?= $data_kategori['nama'] ?></td>
                                             <td><?= $data_kategori['deskripsi'] ?></td>
                                             <td>

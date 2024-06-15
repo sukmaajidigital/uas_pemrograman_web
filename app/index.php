@@ -39,11 +39,12 @@
         </div>
     <div class="container mt-5">
         <div class="tab-content mt-2">
-            <!-- Dashboaard -->
+            <!-- menu -->
             <?php include 'component/dashboard.php';?>
             <?php include 'component/kategori.php';?>
             <?php include 'component/bahanbaku.php';?>
             <?php include 'component/supplier.php';?>
+             
         </div>
     </div>
 
@@ -66,6 +67,5 @@
     }
   });
 </script>
-
 </body>
 </html>

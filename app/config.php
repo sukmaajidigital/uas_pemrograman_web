@@ -1,5 +1,5 @@
 <?php
-$databaseServer='localhost';
+$databaseServer='127.0.0.1';
 $databaseUser='root';
 $databasepass='';
 $databaseName='pw_uas';
