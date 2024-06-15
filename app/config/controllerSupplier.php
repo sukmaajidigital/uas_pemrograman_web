@@ -53,7 +53,7 @@ if(isset($_POST['tombol_simpan_supplier']) and @$_GET['aksi'] == ''){
 
             //memindahkan file yang diunggah ke lokasi yang ditentukan & melakukan proses simpan data baru
             if(move_uploaded_file($_FILES["inputan_logo_supplier"]["tmp_name"], $target_file)){
-                $query_simpan = mysqli_query($koneksi, "INSERT INTO supplier (kodesupplier, nama, alamat, no_telepon, email, kontak_person, logosupllier) VALUES (
+                $query_simpan = mysqli_query($koneksi, "INSERT INTO supplier (kodesupplier, nama, alamat, no_telepon, email, kontak_person, logosupplier) VALUES (
                     '".$_POST['inputan_kode_supplier']."',
                     '".$_POST['inputan_nama_supplier']."',
                     '".$_POST['inputan_alamat_supplier']."',
