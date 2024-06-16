@@ -78,7 +78,7 @@
                                             <th>kategori</th>
                                             <th>Opsi</th>
                                         </tr>
-                                    </thead>
+                                    </thead> 
                                     <tbody>
                                         <!-- disini saya baru tahu queri yang diajarkan pak eko ternyata berfungsi wkwk -->
                                         <?php $no = 1; 

@@ -45,7 +45,7 @@ if(isset($_POST['tombol_simpan_bahanbaku']) and @$_GET['aksi'] == ''){
         '".$_POST['inputan_stok_tersedia_bahanbaku']."',
         '".$_POST['inputan_tanggal_ditambahkan_bahanbaku']."',
         '".$_POST['inputan_kategori_bahanbaku']."'
-    ) ");
+    ) "); 
 
     echo "<script>alert('Operasi berhasil')</script>";
     echo "<meta http-equiv='refresh' content='0; url=index.php'> ";

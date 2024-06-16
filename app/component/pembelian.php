@@ -9,7 +9,7 @@
                                 <?php 
                                     //perintah untuk menampilkan data ke form entri saat melakukan ubah data
                                     if(@$_GET['aksi'] == 'ubah_pembelian') { 
-                                        $SQLTampilDataUbahpembelian = mysqli_query($koneksi, "SELECT * FROM bahanbaku where id = '".$_GET['id']."' "); 
+                                        $SQLTampilDataUbahpembelian = mysqli_query($koneksi, "SELECT * FROM pembelian where id = '".$_GET['id']."' "); 
                                         $data_ubah_pembelian = mysqli_fetch_array($SQLTampilDataUbahpembelian);
                                     }
                                 ?>
@@ -31,11 +31,12 @@
                                         <label class="col-4">Supplier</label>
                                         <div class="col-8 mt-2">
                                             <select class="form-control" name="inputan_supplier_pembelian" required>
-                                                <option value="<?= @$data_ubah_pembelian['namasupplier'] ?>">Pilih Supplier</option>
+                                                <option value="">Pilih Supplier</option>
                                                 <?php
                                                 $query_supplier = mysqli_query($koneksi, "SELECT * FROM supplier");
                                                 while ($supplier = mysqli_fetch_assoc($query_supplier)) {
-                                                    echo '<option value="'.$supplier['id'].'">'.$supplier['nama'].'</option>';
+                                                    $selected = ($supplier['id'] == @$data_ubah_pembelian['id_supplier']) ? 'selected' : '';
+                                                    echo "<option value='".$supplier['id']."' $selected>".$supplier['nama']."</option>";
                                                 }
                                                 ?>
                                             </select>
@@ -48,7 +49,8 @@
                                                 <?php
                                                 $query_bahan_baku = mysqli_query($koneksi, "SELECT * FROM bahanbaku");
                                                 while ($bahan_baku = mysqli_fetch_assoc($query_bahan_baku)) {
-                                                    echo '<option value="'.$bahan_baku['id'].'">'.$bahan_baku['nama'].'</option>';
+                                                    $selected = ($bahan_baku['id'] == @$data_ubah_pembelian['id_bahanbaku']) ? 'selected' : '';
+                                                    echo "<option value='".$bahan_baku['id']."' $selected>".$bahan_baku['nama']."</option>";
                                                 }
                                                 ?>
                                             </select>

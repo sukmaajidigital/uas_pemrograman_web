@@ -35,7 +35,7 @@
         <div class="nav">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'Dashboard' || !isset($_SESSION['active_tab'])) ? 'active' : ''; ?>" data-toggle="tab" href="#dashboard">Dashboard</a>
+                <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'dashboard' || !isset($_SESSION['active_tab'])) ? 'active' : ''; ?>" data-toggle="tab" href="#dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'pembelian') ? 'active' : ''; ?>" data-toggle="tab" href="#pembelian">Pembelian</a>
@@ -54,7 +54,26 @@
     <div class="mt-5">
         <div class="tab-content mt-2">
             <!-- menu -->
-            <?php include 'component/dashboard.php';?>
+            <div id="dashboard" class="container tab-pane <?php echo ($_SESSION['active_tab'] == 'dashboard') ? 'active' : ''; ?>">
+            <h1> Dashboard</h1>
+              <h3>Halaman Laporan</h3>
+                <p>Ini adalah halaman untuk mencetak laporan jadwal kuliah.</p>
+                <div class="row">
+                  <!-- konten form data dosen -->
+                  <div class="col-12">
+                      <div class="card">
+                          <div class="card-header bg-secondary text-white"><b>Pilihan Laporan</b></div>
+                          <div class="card-body">
+                              <table class="table">
+                                      <form action="print.php" method="post" target="new">
+                                              <button name="tombol_cetak" class="btn btn-success btn-block btn-lg"> <i class="fa fa-print"></i> Cetak</button>
+                                      </form>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
             <?php include 'component/pembelian.php';?>
             <?php include 'component/kategori.php';?>
             <?php include 'component/bahanbaku.php';?>

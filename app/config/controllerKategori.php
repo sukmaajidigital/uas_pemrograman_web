@@ -1,22 +1,4 @@
 <?php
-
-// simple generator id
-// function generateKode($koneksi) {
-//     $sql = "SELECT id FROM kategoribahanbaku ORDER BY id DESC LIMIT 1";
-//     $result = $koneksi->query($sql);
-
-//     if ($result->num_rows > 0) {
-//         $row = $result->fetch_assoc();
-//         $lastKode = $row['id'];
-//         $lastNumber = intval(substr($lastKode, 3));
-//         $newNumber = $lastNumber + 1;
-//         return "KBB" . $newNumber;
-//     } else {
-//         return "KBB1";
-//     }
-// }
-// GENERATOR ID NEW (kode.bulan.tanggal.number)
-
 function generateKode($koneksi) {
     // Dapatkan tanggal dan bulan saat ini
     $bulan = date('m'); // Format dua digit untuk bulan (01 - 12)
@@ -26,7 +8,7 @@ function generateKode($koneksi) {
     $sql = "SELECT kodekategori FROM kategoribahanbaku ORDER BY kodekategori DESC LIMIT 1";
     $result = $koneksi->query($sql);
 
-    if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) { 
         $row = $result->fetch_assoc();
         $lastKode = $row['kodekategori'];
         // Ambil 3 angka terakhir dari kode terakhir
