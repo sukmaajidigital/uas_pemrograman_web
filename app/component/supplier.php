@@ -16,7 +16,7 @@
                                  ?>
                                 <form method="post" enctype="multipart/form-data" action="">
 
-                                    <input class="form-control" type="text" name="inputan_id_supplier" value="<?= @$_GET['id'] ?>">
+                                    <input class="form-control" type="hidden" name="inputan_id_supplier" value="<?= @$_GET['id'] ?>">
                                     
                                     <div class="row mb-2">
                                         <label class="col-4">Kode.</label>

@@ -24,9 +24,12 @@
                                  <?php include 'config/controllerKategori.php';?>
 
                                 <form method="post" enctype="multipart/form-data" action="">
-                                    <input class="form-control" type="" name="inputan_kode_kategori" value="<?php echo htmlspecialchars($idToShow); ?>" readonly>
                                     
                                     <div class="row mb-2">
+                                        <label class="col-4">Kode.</label>
+                                        <div class="col-8"> 
+                                            <input class="form-control" type="text" name="inputan_kode_kategori" readonly value="<?php echo htmlspecialchars($idToShow); ?>">
+                                        </div>
                                         <label class="col-4">Nama kategori</label>
                                         <div class="col-8"> 
                                             <input class="form-control" type="text" name="inputan_nama_kategori" required value="<?= @$data_ubah_kategori['nama'] ?>">

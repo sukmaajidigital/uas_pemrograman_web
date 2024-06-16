@@ -16,6 +16,17 @@
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
     </style>
+
+    
+    <!-- Memuat Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Script PHP dan HTML seperti di atas -->
+
+    <!-- Memuat Bootstrap JS (opsional, tergantung kebutuhan) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
 <body>
     <!-- nama aplikasi -->
@@ -25,6 +36,9 @@
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                 <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'Dashboard' || !isset($_SESSION['active_tab'])) ? 'active' : ''; ?>" data-toggle="tab" href="#dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'pembelian') ? 'active' : ''; ?>" data-toggle="tab" href="#pembelian">Pembelian</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link <?php echo ($_SESSION['active_tab'] == 'Kategori') ? 'active' : ''; ?>" data-toggle="tab" href="#kategori">Kategori</a>
@@ -37,10 +51,11 @@
                 </li>
             </ul>
         </div>
-    <div class="container mt-5">
+    <div class="mt-5">
         <div class="tab-content mt-2">
             <!-- menu -->
             <?php include 'component/dashboard.php';?>
+            <?php include 'component/pembelian.php';?>
             <?php include 'component/kategori.php';?>
             <?php include 'component/bahanbaku.php';?>
             <?php include 'component/supplier.php';?>

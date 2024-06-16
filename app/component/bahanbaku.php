@@ -19,29 +19,25 @@
 
                                     <input class="form-control" type="hidden" name="inputan_id_bahanbaku" value="<?= @$_GET['id'] ?>">
                                     <div class="row mb-2">
+                                        <label class="col-4">Kode.</label>
+                                        <div class="col-8">
+                                            <input class="form-control" type="text" name="inputan_kode_bahanbaku" readonly value="<?php echo htmlspecialchars($idToShow); ?>">
+                                        </div>
                                         <label class="col-4">Nama bahan baku</label>
                                         <div class="col-8">
                                             <input class="form-control" type="text" name="inputan_nama_bahanbaku" required value="<?= @$data_ubah_bahanbaku['nama'] ?>">
-                                        </div>
-                                        <label class="col-4">deskripsi</label>
-                                        <div class="col-8">
-                                            <textarea class="form-control" name="inputan_deskripsi_bahanbaku" id=""><?= @$data_ubah_bahanbaku['deskripsi'] ?></textarea>
                                         </div>
                                         <label class="col-4">Satuan</label>
                                         <div class="col-8">
                                             <input class="form-control" type="text" name="inputan_satuan_bahanbaku" required value="<?= @$data_ubah_bahanbaku['satuan'] ?>">
                                         </div>
-                                        <label class="col-4">Harga Satuan</label>
-                                        <div class="col-8">
-                                            <input class="form-control" type="text" name="inputan_harga_bahanbaku" required value="<?= @$data_ubah_bahanbaku['harga_per_satuan'] ?>">
-                                        </div>
                                         <label class="col-4">Stok</label>
                                         <div class="col-8">
-                                            <input class="form-control" type="text" name="inputan_stok_bahanbaku" required value="<?= @$data_ubah_bahanbaku['stok_tersedia'] ?>">
+                                            <input class="form-control" type="text" name="inputan_stok_tersedia_bahanbaku" required value="<?= @$data_ubah_bahanbaku['stok_tersedia'] ?>">
                                         </div>
                                         <label class="col-4">Tanggal</label>
                                         <div class="col-8">
-                                            <input class="form-control" type="text" name="inputan_tanggalinput_bahanbaku" required value="<?= @$data_ubah_bahanbaku['tanggal_ditambahkan'] ?>">
+                                            <input class="form-control" type="date" name="inputan_tanggal_ditambahkan_bahanbaku" required value="<?= @$data_ubah_bahanbaku['tanggal_ditambahkan'] ?>">
                                         </div>
                                         <label class="col-4">Kategori</label>
                                         <div class="col-8">
@@ -74,13 +70,11 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>bahanbaku Barang</th>
-                                            <th>Deskripsi</th>
+                                            <th>Kode.</th>
+                                            <th>bahan baku</th>
                                             <th>Satuan</th>
-                                            <th>Harga/Satuan</th>
                                             <th>Stok</th>
-                                            <th>Total Harga Stok</th>
-                                            <th>Tanggal Ditambahkan</th>
+                                            <th>Tanggal add</th>
                                             <th>kategori</th>
                                             <th>Opsi</th>
                                         </tr>
@@ -93,16 +87,14 @@
                                             ORDER BY bahanbaku.id DESC");;
                                             while($data_bahanbaku = mysqli_fetch_array($SQLtampildatabahanbaku)) 
                                             { 
-                                            $total_harga_stok = $data_bahanbaku['harga_per_satuan'] * $data_bahanbaku['stok_tersedia'];    
+                                               
                                             ?>
                                         <tr style="font-size: smaller;">
                                             <td><?= $no++ ?></td>
+                                            <td><?= $data_bahanbaku['kodebahan']?></td>
                                             <td><?= $data_bahanbaku['nama'] ?></td>
-                                            <td><?= $data_bahanbaku['deskripsi'] ?></td>
                                             <td><?= $data_bahanbaku['satuan'] ?></td>
-                                            <td>Rp.<?= $data_bahanbaku['harga_per_satuan'] ?></td>
                                             <td><?= $data_bahanbaku['stok_tersedia'] ?></td>
-                                            <td>Rp.<?= $total_harga_stok?></td>
                                             <td><?= $data_bahanbaku['tanggal_ditambahkan'] ?></td>
                                             <td><?= $data_bahanbaku['nama_kategori'] ?></td>
                                             <td>
