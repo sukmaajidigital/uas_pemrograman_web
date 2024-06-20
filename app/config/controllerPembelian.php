@@ -43,7 +43,7 @@ if(isset($_POST['tombol_simpan_pembelian']) and @$_GET['aksi'] == ''){
         '".$_POST['inputan_bahanbaku_pembelian']."'
     ) ");
     echo "<script>alert('update data pembelian berhasil')</script>";
-    // script update stok
+    // script update stok simpan tambah data
     $id_bahanbaku = ($_POST['inputan_bahanbaku_pembelian']);
     $SQLtampildatabahanbaku = mysqli_query($koneksi, "SELECT stok_tersedia FROM bahanbaku 
     WHERE id='$id_bahanbaku'");
@@ -77,7 +77,16 @@ if(isset($_POST['tombol_simpan_pembelian']) and @$_GET['aksi'] == 'ubah_pembelia
 if(@$_GET['aksi'] == 'hapus_pembelian'){
     //melakukan proses hapus data
     $query_hapus = mysqli_query($koneksi, "DELETE FROM pembelian where id = '".$_GET['id']."' ");
-
+    // script update stok hapus data
+    // $id_bahanbaku = ($_POST['inputan_bahanbaku_pembelian']);
+    // $SQLtampildatabahanbaku = mysqli_query($koneksi, "SELECT stok_tersedia FROM bahanbaku 
+    // WHERE id='$id_bahanbaku'");
+    // while($data_bahanbaku = mysqli_fetch_array($SQLtampildatabahanbaku)) 
+    // $stok_tersedia = ($data_bahanbaku['stok_tersedia']) + ($_POST['inputan_total_beli_pembelian']);
+    // $query_simpan_updatestok = mysqli_query($koneksi, "UPDATE bahanbaku SET 
+    //     stok_tersedia = '$stok_tersedia'
+    //     WHERE id = '$id_bahanbaku'
+    // ");
     echo "<script>alert('Hapus berhasil')</script>";
     echo "<meta http-equiv='refresh' content='0; url=index.php'> ";
 }
