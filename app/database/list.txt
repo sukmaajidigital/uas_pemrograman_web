@@ -1,0 +1,16 @@
+
+Tabelkategoribahanbaku
+(pk)id,kodekategori,nama,deskripsi,
+
+Tabelbahanbaku
+(pk)idintNOTNULLAUTO_INCREMENT,
+kodebahan,nama,satuan,stok_tersedia,tanggal_ditambahkan,(fk)id_kategori
+
+
+Tabelsupplier
+(pk)id,kodesupplier,nama,alamat,no_telepon,email,kontak_person,logosupplier
+
+Tabelpembelian
+(pk)id,kodepembelian,harga_satuan,total_beli,tanggal_pembelian,(fk)id_supplier,(fk)id_bahanbaku,
+
+
