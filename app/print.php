@@ -16,49 +16,24 @@
 <body>
 	<div style="height: 20px; width: 100%; background-color: green;"></div>
 	<div class="m-5">
-		<h1>SISTEM INFORMASI PENDATAAN STOK</h1>
-		
-        <br>
+		<h1>LAPORAN SISTEM PENDATAAN STOK BAHAN BAKU</h1>
+
         <h2>Laporan Pembelian Barang Periode (<?= date("d/M, Y", strtotime(date('Y-m-d'))) ?>)</h2>
-		<table class="table table-bordered mt-5">
-			<thead>
-			    <tr>
-			        <th>No.</th>
-                    <th>Kode.</th>
-                    <th>Bahan</th>
-                    <th>total beli</th>
-                    <th>harga satuan</th>
-                    <th>total harga</th>
-                    <th>supplier</th>
-                    <th>tanggal</th>
-			    </tr>
-			</thead>
-			<tbody>
-			    <?php $no = 1; 
-			    	// $SQLTampilDataJadwal = mysqli_query($koneksi, "SELECT * FROM jadwal_kuliah, dosen, mata_kuliah WHERE jadwal_kuliah.id_dosen = dosen.id_dosen AND jadwal_kuliah.id_matakuliah = mata_kuliah.id_matakuliah AND tanggal_entri BETWEEN '".$_POST['inputan_tgl_mulai']."' AND '".$_POST['inputan_tgl_selesai']."' ORDER BY id_jadwalkuliah DESC");
-			    	// while($data_jadwal = mysqli_fetch_array($SQLTampilDataJadwal)) 
-                    $SQLtampildatapembelian = mysqli_query($koneksi, "SELECT pembelian.*, bahanbaku.nama AS barangbeli, supplier.nama AS namasupplier 
-                    FROM pembelian 
-                    JOIN bahanbaku ON pembelian.id_bahanbaku = bahanbaku.id 
-                    JOIN supplier ON pembelian.id_supplier = supplier.id 
-                    ORDER BY pembelian.id DESC");
-                    while($data_pembelian = mysqli_fetch_array($SQLtampildatapembelian)) 
-                    { 
-                    $totalharga = $data_pembelian['total_beli']*$data_pembelian['harga_satuan'];
-                    ?>
-			    <tr style="font-size: smaller;">                 
-                    <td><?= $no++ ?></td>
-                    <td><?= $data_pembelian['kodepembelian']?></td>
-                    <td><?= $data_pembelian['barangbeli'] ?></td>
-                    <td><?= $data_pembelian['total_beli'] ?></td>
-                    <td><?= $data_pembelian['harga_satuan'] ?></td>
-                    <td><?= $totalharga?></td>
-                    <td><?= $data_pembelian['namasupplier'] ?></td>
-                    <td><?= $data_pembelian['tanggal_pembelian'] ?></td>
-			    </tr>
-			    <?php } ?>
-			</tbody>
-		</table>
+		<?php
+        include 'component/table/tablePembelian.php'
+        ?>
+		<div class="row mt-5">
+			<div class="col-5">
+				<h2>Kategori bahan baku</h2>
+				<?php include 'component/table/tableKategori.php' ?>
+			</div>
+			<div class="col-7">
+				<h2>Bahan Baku & Stok tersedia</h2>
+				<?php include 'component/table/tableBahanbaku.php' ?>
+			</div>
+		</div>
+		<h2>Supplier</h2>
+		<?php include 'component/table/tableSupplier.php' ?>
 	</div>
 
 	<div style="height: 20px; width: 100%; background-color: black; position: absolute; bottom: 0;"></div>
