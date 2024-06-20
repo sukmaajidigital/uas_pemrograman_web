@@ -1,11 +1,3 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 INSERT INTO `bahanbaku` (`id`, `kodebahan`, `nama`, `satuan`, `stok_tersedia`, `tanggal_ditambahkan`, `id_kategori`) VALUES
 	(4, 'BH002', 'lilin A1', 'kg', 123164.00, '2024-06-16', 35),
@@ -28,9 +20,3 @@ INSERT INTO `supplier` (`id`, `kodesupplier`, `nama`, `alamat`, `no_telepon`, `e
 	(12, 'SUP008', 'UD. Barokah Indah', 'Jl. Merak No. 12, Makassar', '0411-789012', 'info@barokahindah.co.id', 'Siti Rahayu', '666eff7c2f471.jpeg'),
 	(13, 'SUP009', 'PT. Berkah Sukses', 'Jl. Wahid Hasyim No. 90, Samarinda', '0541-345678', 'info@berkahsukses.co.id', 'Hendri Kusuma', '666eff65b4644.jpg'),
 	(14, 'SUP010', 'CV. Makmur Jaya', 'Jl. Gatot Subroto No. 56, Pontianak', '0561-567890', 'info@makmurjaya.co.id', 'Lina Fitriani', '666eff584e3be.png');
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
